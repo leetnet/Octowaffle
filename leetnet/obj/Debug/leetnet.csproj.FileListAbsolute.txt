@@ -16,3 +16,6 @@ C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.c
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Browser.resources
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Properties.Resources.resources
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\bin\Debug\leetnet.exe.config
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb

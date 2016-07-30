@@ -38,7 +38,7 @@ namespace leetnet
                 tcpclnt.Connect(ip, 13370);
                 Console.WriteLine("Connected");
                 Stream stm = tcpclnt.GetStream();
-                byte[] bb = new byte[100];
+                byte[] bb = new byte[2147000000];
                 int k = stm.Read(bb, 0, 100);
                 
                 switch (Convert.ToChar(bb[0]).ToString())
