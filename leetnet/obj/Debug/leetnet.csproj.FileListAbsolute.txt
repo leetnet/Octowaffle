@@ -7,3 +7,12 @@ c:\users\carver harrison\documents\visual studio 2015\Projects\leetnet\leetnet\o
 c:\users\carver harrison\documents\visual studio 2015\Projects\leetnet\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
 c:\users\carver harrison\documents\visual studio 2015\Projects\leetnet\leetnet\obj\Debug\leetnet.exe
 c:\users\carver harrison\documents\visual studio 2015\Projects\leetnet\leetnet\obj\Debug\leetnet.pdb
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\bin\Debug\leetnet.exe.config
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\bin\Debug\leetnet.exe
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\bin\Debug\leetnet.pdb
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csprojResolveAssemblyReference.cache
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Browser.resources
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Properties.Resources.resources
+C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
