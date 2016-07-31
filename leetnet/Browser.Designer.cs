@@ -122,7 +122,7 @@
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.textBox1);
             this.Name = "Browser";
-            this.Text = "Leetnet Browser";
+            this.Text = "Octowaffle";
             this.Load += new System.EventHandler(this.Browser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
