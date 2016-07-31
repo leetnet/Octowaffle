@@ -18,7 +18,7 @@ namespace leetnet
         public Browser()
         {
             InitializeComponent();
-            webBrowser1.DocumentText = "Loading...";
+            webBrowser1.DocumentText = "";
         }
 
         private void goButton_Click(object sender, EventArgs e)
@@ -39,14 +39,7 @@ namespace leetnet
                 tcpclnt.Connect(ip, 13370);
                 Console.WriteLine("Connected");
                 Stream stm = tcpclnt.GetStream();
-<<<<<<< HEAD
                 for (int b = 0; b != 4; b = stm.ReadByte())
-=======
-                byte[] bb = new byte[2147000000];
-                int k = stm.Read(bb, 0, 100);
-                
-                switch (Convert.ToChar(bb[0]).ToString())
->>>>>>> origin/master
                 {
                     char s = (char)b;
                     markdown += s;
