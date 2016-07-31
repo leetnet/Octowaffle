@@ -9,3 +9,4 @@ C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Properties.
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csprojResolveAssemblyReference.cache

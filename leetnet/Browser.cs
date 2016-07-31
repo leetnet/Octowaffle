@@ -18,7 +18,7 @@ namespace leetnet
         public Browser()
         {
             InitializeComponent();
-            webBrowser1.DocumentText = "";
+            //webBrowser1.DocumentText = "";
         }
 
         private void goButton_Click(object sender, EventArgs e)
@@ -45,7 +45,9 @@ namespace leetnet
                     markdown += s;
                     Console.Write(s);
                 }
-                webBrowser1.DocumentText = CommonMarkConverter.Convert(markdown.Remove(0, 1));
+                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
+                wbControl.DocumentText = CommonMarkConverter.Convert(markdown.Remove(0, 1));
+                tabControl1.SelectedTab.Text = textBox1.Text;
                 tcpclnt.Close();
             }
 
@@ -53,6 +55,35 @@ namespace leetnet
             {
                 Console.WriteLine("Error: " + e);
             }
+        }
+
+        private void Browser_Load(object sender, EventArgs e)
+        {
+            TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
+            tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
+
+            WebBrowser addedWebBrowser = new WebBrowser()
+            {
+                Parent = addedTabPage, //add the new webBrowser to the new tab
+                Dock = DockStyle.Fill
+            };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
+            tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
+
+            WebBrowser addedWebBrowser = new WebBrowser()
+            {
+                Parent = addedTabPage, //add the new webBrowser to the new tab
+                Dock = DockStyle.Fill
+            };
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
