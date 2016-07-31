@@ -16,6 +16,12 @@ C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\bin\Debug\CommonMar
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Browser.resources
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.Properties.Resources.resources
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
+<<<<<<< HEAD
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb
 C:\Users\Carver Harrison\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csprojResolveAssemblyReference.cache
+=======
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\bin\Debug\leetnet.exe.config
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb
+>>>>>>> origin/master
