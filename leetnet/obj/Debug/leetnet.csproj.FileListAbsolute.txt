@@ -10,3 +10,16 @@ C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csproj.Gene
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.exe
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.pdb
 C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\obj\Debug\leetnet.csprojResolveAssemblyReference.cache
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\leetnet.exe.config
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.pdb
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\leetnet.exe
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\leetnet.pdb
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\CommonMark.dll
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\NetSockets.dll
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\CommonMark.pdb
+C:\Users\mikey\Documents\Octowaffle\leetnet\bin\Debug\CommonMark.xml
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.csprojResolveAssemblyReference.cache
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.Browser.resources
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.Properties.Resources.resources
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
+C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.exe

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMark;
+using NetSockets;
 
 namespace leetnet
 {
@@ -26,34 +27,70 @@ namespace leetnet
             LoadPage(textBox1.Text);
         }
 
+        NetObjectClient clnt = null;
+        int thisID = 0;
+
         public void LoadPage(string text)
+        {
+            text = text.Replace("ltp://", "");
+            var textsplit = text.Split('/');
+            string ip_addr = textsplit[0];
+            string fpath = text.Replace(ip_addr, "");
+            if(clnt == null || clnt.RemoteHost != ip_addr)
+            {
+                ConnectToClient(ip_addr);
+            }
+            else
+            {
+                SendToServer(StatusCode.DocumentRequest, fpath);
+            }
+
+        }
+
+        public void SetMD(string md)
+        {
+            WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
+            wbControl.DocumentText = CommonMark.CommonMarkConverter.Convert(md);
+        }
+
+        public void SendToServer(StatusCode statusCode, object obj)
+        {
+            clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
+        }
+
+        public void ConnectToClient(string ip)
+        {
+            clnt = new NetObjectClient();
+            clnt.OnReceived += new NetReceivedEventHandler<NetObject>(this.OnReceived);
+            clnt.Connect(ip, 13370);
+        }
+
+        private void OnReceived(object sender, NetReceivedEventArgs<NetObject> e)
         {
             try
             {
-                ASCIIEncoding asen = new ASCIIEncoding();
-                TcpClient tcpclnt = new TcpClient();
-                Console.WriteLine("Connecting...");
-
-                string ip = text.Split('/')[0];
-                string markdown = "";
-                tcpclnt.Connect(ip, 13370);
-                Console.WriteLine("Connected");
-                Stream stm = tcpclnt.GetStream();
-                for (int b = 0; b != 4; b = stm.ReadByte())
+                int dataheader = Convert.ToInt32(e.Data.Name);
+                switch(dataheader)
                 {
-                    char s = (char)b;
-                    markdown += s;
-                    Console.Write(s);
-                }
-                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-                wbControl.DocumentText = CommonMarkConverter.Convert(markdown.Remove(0, 1));
-                tabControl1.SelectedTab.Text = textBox1.Text;
-                tcpclnt.Close();
-            }
+                    case 100:
+                        SetMD(e.Data.Object as string);
+                        break;
+                    case 201:
+                        SetMD(@"# LTP 201: Not found.
 
-            catch (Exception e)
+The file you requested is not found on the server.");
+                        break;        
+                }
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine("Error: " + e);
+                SetMD($@"# Client error
+
+An error has occurred in Octowaffle and page loading has been halted.
+
+***Error information***:
+
+ - {ex.Message}");
             }
         }
 
@@ -85,5 +122,10 @@ namespace leetnet
         {
 
         }
+    }
+
+    public enum StatusCode
+    {
+        DocumentRequest = 102,
     }
 }
