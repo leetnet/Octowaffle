@@ -15,7 +15,7 @@ namespace servertest
         {
             try
             {
-                IPAddress ipAd = IPAddress.Parse("127.0.0.1");
+                IPAddress ipAd = IPAddress.Parse("0.0.0.0");
                 // use local m/c IP address, and 
                 // use the same in the client
 
