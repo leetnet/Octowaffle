@@ -13,12 +13,12 @@ namespace servertest
     {
         public static void Main()
         {
-<<<<<<< HEAD
+
 			while (true)
 			{
 				try
 				{
-					IPAddress ipAd = IPAddress.Parse("10.0.0.5");
+					IPAddress ipAd = IPAddress.Parse("0.0.0.0");
 					// use local m/c IP address, and 
 					// use the same in the client
 
@@ -49,40 +49,6 @@ namespace servertest
 					Console.WriteLine("Error..... " + e.StackTrace);
 				}
 			}
-=======
-            try
-            {
-                IPAddress ipAd = IPAddress.Parse("0.0.0.0");
-                // use local m/c IP address, and 
-                // use the same in the client
-
-                /* Initializes the Listener */
-                TcpListener myList = new TcpListener(ipAd, 13370);
-
-                /* Start Listeneting at the specified port */
-                myList.Start();
-
-                Console.WriteLine("The local End point is  :" +
-                                  myList.LocalEndpoint);
-                Console.WriteLine("Waiting for a connection.....");
-
-                Socket s = myList.AcceptSocket();
-                Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
-                ASCIIEncoding asen = new ASCIIEncoding();
-
-                s.Send(File.ReadAllBytes("default.md"));
-                s.Send(new byte[] { 4 });
-
-                /* clean up */
-                s.Close();
-                myList.Stop();
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error..... " + e.StackTrace);
-            }
->>>>>>> 2274c856aa8aa05e0e127d660e7f77890edfb3ff
         }
     }
 }
