@@ -28,9 +28,9 @@ namespace servertest
 					/* Start Listeneting at the specified port */
 					myList.Start();
 
-					Console.WriteLine("The local End point is  :" +
+					Console.WriteLine("The local End point is: " +
 									  myList.LocalEndpoint);
-					Console.WriteLine("Waiting for a connection.....");
+					Console.WriteLine("Waiting for a connection...");
 
 					Socket s = myList.AcceptSocket();
 					Console.WriteLine("Connection accepted from " + s.RemoteEndPoint);
@@ -46,7 +46,7 @@ namespace servertest
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine("Error..... " + e.StackTrace);
+					Console.WriteLine("Error! " + e.StackTrace);
 				}
 			}
         }

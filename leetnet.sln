@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "leetnet", "leetnet\leetnet.csproj", "{80A9C8F6-223D-4429-A6DD-DDAD5B14FD82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "servertest", "servertest\servertest.csproj", "{8A5CDEE3-EB91-4797-8EA4-1B6EE6D4BB0A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{80A9C8F6-223D-4429-A6DD-DDAD5B14FD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80A9C8F6-223D-4429-A6DD-DDAD5B14FD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80A9C8F6-223D-4429-A6DD-DDAD5B14FD82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A5CDEE3-EB91-4797-8EA4-1B6EE6D4BB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A5CDEE3-EB91-4797-8EA4-1B6EE6D4BB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A5CDEE3-EB91-4797-8EA4-1B6EE6D4BB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A5CDEE3-EB91-4797-8EA4-1B6EE6D4BB0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
