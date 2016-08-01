@@ -63,7 +63,7 @@ namespace leetnet
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
             string thing = (string)obj;
             thing.Replace("ltp://", "");
-            textBox1.Text = thing;
+            //textBox1.Text = thing;
             tabControl1.SelectedTab.Text = thing;
         }
 
