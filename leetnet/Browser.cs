@@ -35,7 +35,6 @@ namespace leetnet
 
         NetObjectClient clnt = null;
         int thisID = 0;
-        bool connecting = false;
 
 
         public void LoadPage(string text)
@@ -85,11 +84,11 @@ namespace leetnet
         {
             try
             {
-                connecting = true;
+                
                 clnt = new NetObjectClient();
                 clnt.OnConnected += (o, a) =>
                 {
-                    connecting = false;
+                    
                 };
             OnIDReceived = () =>
             {
@@ -151,10 +150,10 @@ An error has occurred in Octowaffle and page loading has been halted.
 
         private void Browser_Load(object sender, EventArgs e)
         {
-            TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
+            TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
-
-            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("about:blank")
+            tabControl1.SelectTab(addedTabPage);
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(welcome_text))
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
@@ -198,16 +197,15 @@ An error has occurred in Octowaffle and page loading has been halted.
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
+            TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
             tabControl1.SelectTab(addedTabPage);
-            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("about:blank")
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(welcome_text))
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
                 
             };
-            SetMD(welcome_text);
             addedWebBrowser.TitleChanged += (o, a) =>
             {
                 this.Invoke(new Action(() =>
@@ -253,7 +251,13 @@ An error has occurred in Octowaffle and page loading has been halted.
             Application.Exit();
         }
 
-        public const string welcome_text = "Welcome to the Leetnet.";
+        public const string welcome_text = @"<title>Welcome!</title>
+
+# Welcome to the Leetnet.
+
+The 1337net's Client and Server are under construction!
+
+Things may not work! Please tell us if they don't!";
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
