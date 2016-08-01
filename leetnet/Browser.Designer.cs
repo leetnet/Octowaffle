@@ -123,6 +123,7 @@
             this.Controls.Add(this.textBox1);
             this.Name = "Browser";
             this.Text = "Octowaffle";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.letsgetout);
             this.Load += new System.EventHandler(this.Browser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
