@@ -52,6 +52,12 @@ namespace leetnet
             {
                 SendToServer(StatusCode.DocumentRequest, fpath);
             }
+            this.Invoke(new Action(() =>
+            {
+                var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                wbControl.Tag = text;
+            }));
+
         }
 
         public void SetMD(string md)
@@ -181,7 +187,7 @@ An error has occurred in Octowaffle and page loading has been halted.
         {
             TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
-
+            tabControl1.SelectTab(addedTabPage);
             ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("about:blank")
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
@@ -212,6 +218,11 @@ An error has occurred in Octowaffle and page loading has been halted.
 
         private void button4_Click(object sender, EventArgs e)
         {
+            this.Invoke(new Action(() =>
+            {
+                var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                LoadPage(wbControl.Tag as string);
+            }));
 
         }
 
