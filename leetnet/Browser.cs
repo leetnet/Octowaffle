@@ -65,8 +65,7 @@ namespace leetnet
             this.Invoke(new Action(() =>
             {
                 var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                wbControl.Load("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
-                tabControl1.SelectedTab.Text = textBox1.Text;
+                wbControl.Load("data:text/html,<title>JONNY LADOUCEUR</title><style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
             }));
         }
 
@@ -162,6 +161,13 @@ An error has occurred in Octowaffle and page loading has been halted.
                 
             };
             SetMD(welcome_text);
+            addedWebBrowser.TitleChanged += (o, a) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    tabControl1.SelectedTab.Text = a.Title;
+                }));
+            };
             addedWebBrowser.AddressChanged += (o, a) =>
             {
                 try
@@ -195,6 +201,13 @@ An error has occurred in Octowaffle and page loading has been halted.
                 
             };
             SetMD(welcome_text);
+            addedWebBrowser.TitleChanged += (o, a) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    tabControl1.SelectedTab.Text = a.Title;
+                }));
+            };
             addedWebBrowser.AddressChanged += (o, a) =>
             {
                 try
