@@ -54,6 +54,7 @@ namespace leetnet
             {
                 WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
                 wbControl.DocumentText = "<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md);
+                tabControl1.SelectedTab.Text = textBox1.Text;
             }));
         }
 
@@ -64,8 +65,8 @@ namespace leetnet
 
         public void ConnectToClient(string ip, string fpath)
         {
-//            try
-//            {
+            try
+            {
                 connecting = true;
                 clnt = new NetObjectClient();
                 clnt.OnConnected += (o, a) =>
@@ -84,7 +85,7 @@ You've been abrubtly disconnected from the server for no apparent reason.");
                 };
                 clnt.OnReceived += new NetReceivedEventHandler<NetObject>(this.OnReceived);
                 clnt.Connect(ip, 13370);
-/*            }
+           }
             catch (Exception ex)
             {
                 SetMD($@"# Connection failure.
@@ -93,7 +94,7 @@ Could not connect to {ip}.
 
 **Error**: {ex.Message}");
             }
-*/        }
+       }
 
         Action OnIDReceived;
 
@@ -140,7 +141,19 @@ An error has occurred in Octowaffle and page loading has been halted.
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
                 DocumentText = welcome_text
-
+                
+            };
+            addedWebBrowser.Navigated += (o, a) =>
+            {
+                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
+                String thing = wbControl.Url.ToString();
+                if (thing.StartsWith("ltp://"))
+                {
+                    LoadPage(thing);
+                }
+                thing.Replace("ltp://","");
+                textBox1.Text = thing;
+                tabControl1.SelectedTab.Text = textBox1.Text;
             };
         }
 
@@ -155,11 +168,25 @@ An error has occurred in Octowaffle and page loading has been halted.
                 Dock = DockStyle.Fill,
                 DocumentText = welcome_text
             };
+            addedWebBrowser.Navigated += (o, a) =>
+            {
+                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
+                String thing = wbControl.Url.ToString();
+                if (thing.StartsWith("ltp://"))
+                {
+                    LoadPage(thing);
+                }
+            };
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void letsgetout(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         public const string welcome_text = @"Welcome to the Leetnet.";
