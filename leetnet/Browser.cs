@@ -79,7 +79,10 @@ namespace leetnet
                         SetMD(@"# LTP 201: Not found.
 
 The file you requested is not found on the server.");
-                        break;        
+                        break;
+                    case 400:
+                        thisID = Convert.ToInt32(e.Data.Object as string);
+                        break;
                 }
             }
             catch (Exception ex)
