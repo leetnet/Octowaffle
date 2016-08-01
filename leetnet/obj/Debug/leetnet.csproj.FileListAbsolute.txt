@@ -23,3 +23,4 @@ C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.Browser.resources
 C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.Properties.Resources.resources
 C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.csproj.GenerateResource.Cache
 C:\Users\mikey\Documents\Octowaffle\leetnet\obj\Debug\leetnet.exe
+C:\Users\wiggl\Documents\GitHub\Octowaffle\leetnet\bin\Debug\NetSockets.dll
