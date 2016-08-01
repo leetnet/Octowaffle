@@ -163,10 +163,17 @@ An error has occurred in Octowaffle and page loading has been halted.
             SetMD(welcome_text);
             addedWebBrowser.TitleChanged += (o, a) =>
             {
-                this.Invoke(new Action(() =>
+                try
                 {
-                    tabControl1.SelectedTab.Text = a.Title;
-                }));
+                    this.Invoke(new Action(() =>
+                    {
+                        tabControl1.SelectedTab.Text = a.Title;
+                    }));
+                }
+                catch
+                {
+
+                }
             };
             addedWebBrowser.AddressChanged += (o, a) =>
             {
