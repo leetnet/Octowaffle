@@ -65,7 +65,7 @@ namespace leetnet
             this.Invoke(new Action(() =>
             {
                 var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                wbControl.Load("data:text/html,<title>JONNY LADOUCEUR</title><style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
+                wbControl.Load("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
             }));
         }
 
