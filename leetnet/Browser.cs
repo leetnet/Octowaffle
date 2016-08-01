@@ -29,6 +29,8 @@ namespace leetnet
 
         NetObjectClient clnt = null;
         int thisID = 0;
+        bool connecting = false;
+
 
         public void LoadPage(string text)
         {
@@ -36,15 +38,15 @@ namespace leetnet
             var textsplit = text.Split('/');
             string ip_addr = textsplit[0];
             string fpath = text.Replace(ip_addr, "");
-            if(clnt == null || clnt.RemoteHost != ip_addr)
+            if (clnt == null || clnt.RemoteHost != ip_addr)
             {
                 ConnectToClient(ip_addr);
             }
-            else
+            while (connecting == true)
             {
-                SendToServer(StatusCode.DocumentRequest, fpath);
-            }
 
+            }
+            SendToServer(StatusCode.DocumentRequest, fpath);
         }
 
         public void SetMD(string md)
@@ -63,9 +65,23 @@ namespace leetnet
 
         public void ConnectToClient(string ip)
         {
-            clnt = new NetObjectClient();
-            clnt.OnReceived += new NetReceivedEventHandler<NetObject>(this.OnReceived);
-            clnt.Connect(ip, 13370);
+            try
+            {
+                connecting = true;
+                clnt = new NetObjectClient();
+                clnt.OnConnected += (o, a) =>
+                {
+                    connecting = false;
+                };
+                clnt.OnReceived += new NetReceivedEventHandler<NetObject>(this.OnReceived);
+                clnt.Connect(ip, 13370);
+            }
+            catch
+            {
+                SetMD($@"# Connection failure.
+
+Could not connect to {ip}.");
+            }
         }
 
         private void OnReceived(object sender, NetReceivedEventArgs<NetObject> e)
@@ -109,7 +125,8 @@ An error has occurred in Octowaffle and page loading has been halted.
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
-                
+                DocumentText = welcome_text
+
             };
         }
 
@@ -121,7 +138,8 @@ An error has occurred in Octowaffle and page loading has been halted.
             WebBrowser addedWebBrowser = new WebBrowser()
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                DocumentText = welcome_text
             };
         }
 
@@ -129,6 +147,8 @@ An error has occurred in Octowaffle and page loading has been halted.
         {
 
         }
+
+        public const string welcome_text = @"Welcome to the Leetnet.";
     }
 
     public enum StatusCode
