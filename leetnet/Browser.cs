@@ -52,7 +52,7 @@ namespace leetnet
             this.Invoke(new Action(() =>
             {
                 WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-                wbControl.DocumentText = CommonMark.CommonMarkConverter.Convert(md);
+                wbControl.DocumentText = "<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md);
             }));
         }
 
@@ -108,7 +108,8 @@ An error has occurred in Octowaffle and page loading has been halted.
             WebBrowser addedWebBrowser = new WebBrowser()
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                
             };
         }
 
