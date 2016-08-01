@@ -68,6 +68,12 @@ namespace leetnet
         {
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
             string thing = (string)obj;
+            this.Invoke(new Action(() =>
+            {
+                thing.Replace("ltp://", "");
+                //textBox1.Text = thing;
+                tabControl1.SelectedTab.Text = thing;
+            }));
         }
 
         public void ConnectToClient(string ip, string fpath)
