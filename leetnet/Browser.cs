@@ -68,9 +68,6 @@ namespace leetnet
         {
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
             string thing = (string)obj;
-            thing.Replace("ltp://", "");
-            //textBox1.Text = thing;
-            tabControl1.SelectedTab.Text = thing;
         }
 
         public void ConnectToClient(string ip, string fpath)
@@ -219,12 +216,32 @@ An error has occurred in Octowaffle and page loading has been halted.
             Application.Exit();
         }
 
-        public const string welcome_text = @"Welcome to the Leetnet.";
+        public const string welcome_text = "Welcome to the Leetnet.";
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 goButton_Click(this, EventArgs.Empty);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                wbControl.Back();
+                wbControl.Back();
+            }));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Invoke(new Action(() =>
+            {
+                ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                wbControl.Forward();
+                wbControl.Forward();
+            }));
         }
     }
 
