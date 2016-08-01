@@ -40,6 +40,11 @@ namespace leetnet
         public void LoadPage(string text)
         {
             text = text.Replace("ltp://", "");
+            this.Invoke(new Action(() =>
+            {
+                textBox1.Text = text;
+                tabControl1.SelectedTab.Text = text;
+            }));
             var textsplit = text.Split('/');
             string ip_addr = textsplit[0];
             string fpath = text.Replace(ip_addr, "");
@@ -72,12 +77,6 @@ namespace leetnet
         {
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
             string thing = (string)obj;
-            this.Invoke(new Action(() =>
-            {
-                thing.Replace("ltp://", "");
-                //textBox1.Text = thing;
-                tabControl1.SelectedTab.Text = thing;
-            }));
         }
 
         public void ConnectToClient(string ip, string fpath)
@@ -166,7 +165,13 @@ An error has occurred in Octowaffle and page loading has been halted.
                 {
                     this.Invoke(new Action(() =>
                     {
-                        tabControl1.SelectedTab.Text = a.Title;
+                        if(a.Title.StartsWith("data:text/html")) {
+
+                        }
+                        else
+                        {
+                            tabControl1.SelectedTab.Text = a.Title;
+                        }
                     }));
                 }
                 catch
