@@ -11,15 +11,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CommonMark;
 using NetSockets;
+using CefSharp.WinForms;
+using CefSharp;
 
 namespace leetnet
 {
     public partial class Browser : Form
     {
+        
+
         public Browser()
         {
+            Cef.Initialize(new CefSettings());
             InitializeComponent();
             //webBrowser1.DocumentText = "";
+            
         }
 
         private void goButton_Click(object sender, EventArgs e)
@@ -52,8 +58,8 @@ namespace leetnet
         {
             this.Invoke(new Action(() =>
             {
-                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-                wbControl.DocumentText = "<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md);
+                var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                wbControl.Load("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
                 tabControl1.SelectedTab.Text = textBox1.Text;
             }));
         }
@@ -140,20 +146,30 @@ An error has occurred in Octowaffle and page loading has been halted.
             TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
 
-            WebBrowser addedWebBrowser = new WebBrowser()
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("about:blank")
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
-                DocumentText = welcome_text
                 
             };
-            addedWebBrowser.Navigated += (o, a) =>
+            SetMD(welcome_text);
+            addedWebBrowser.AddressChanged += (o, a) =>
             {
-                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-                String thing = wbControl.Url.ToString();
-                if (thing.StartsWith("ltp://"))
+                try
                 {
-                    LoadPage(thing);
+                    this.Invoke(new Action(() =>
+                    {
+                        ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                        String thing = a.Address.ToString();
+                        if (thing.StartsWith("ltp://"))
+                        {
+                            LoadPage(thing);
+                        }
+                    }));
+                }
+                catch
+                {
+
                 }
             };
         }
@@ -163,19 +179,30 @@ An error has occurred in Octowaffle and page loading has been halted.
             TabPage addedTabPage = new TabPage("about:blank"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
 
-            WebBrowser addedWebBrowser = new WebBrowser()
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("about:blank")
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
-                DocumentText = welcome_text
+                
             };
-            addedWebBrowser.Navigated += (o, a) =>
+            SetMD(welcome_text);
+            addedWebBrowser.AddressChanged += (o, a) =>
             {
-                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-                String thing = wbControl.Url.ToString();
-                if (thing.StartsWith("ltp://"))
+                try
                 {
-                    LoadPage(thing);
+                    this.Invoke(new Action(() =>
+                    {
+                        ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                        String thing = a.Address.ToString();
+                        if (thing.StartsWith("ltp://"))
+                        {
+                            LoadPage(thing);
+                        }
+                    }));
+                }
+                catch
+                {
+
                 }
             };
         }
@@ -187,10 +214,18 @@ An error has occurred in Octowaffle and page loading has been halted.
 
         private void letsgetout(object sender, EventArgs e)
         {
+            if(clnt != null && clnt.IsConnected)
+                clnt.Disconnect();
             Application.Exit();
         }
 
         public const string welcome_text = @"Welcome to the Leetnet.";
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                goButton_Click(this, EventArgs.Empty);
+        }
     }
 
     public enum StatusCode
