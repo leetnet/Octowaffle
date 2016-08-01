@@ -40,13 +40,12 @@ namespace leetnet
             string fpath = text.Replace(ip_addr, "");
             if (clnt == null || clnt.RemoteHost != ip_addr)
             {
-                ConnectToClient(ip_addr);
+                ConnectToClient(ip_addr, fpath);
             }
-            while (connecting == true)
+            else
             {
-
+                SendToServer(StatusCode.DocumentRequest, fpath);
             }
-            SendToServer(StatusCode.DocumentRequest, fpath);
         }
 
         public void SetMD(string md)
@@ -63,26 +62,40 @@ namespace leetnet
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
         }
 
-        public void ConnectToClient(string ip)
+        public void ConnectToClient(string ip, string fpath)
         {
-            try
-            {
+//            try
+//            {
                 connecting = true;
                 clnt = new NetObjectClient();
                 clnt.OnConnected += (o, a) =>
                 {
                     connecting = false;
                 };
+            OnIDReceived = () =>
+            {
+                SendToServer(StatusCode.DocumentRequest, fpath);
+            };
+                clnt.OnDisconnected += (o, a) =>
+                {
+                    SetMD(@"Disconnected abrubtly.
+
+You've been abrubtly disconnected from the server for no apparent reason.");
+                };
                 clnt.OnReceived += new NetReceivedEventHandler<NetObject>(this.OnReceived);
                 clnt.Connect(ip, 13370);
-            }
-            catch
+/*            }
+            catch (Exception ex)
             {
                 SetMD($@"# Connection failure.
 
-Could not connect to {ip}.");
+Could not connect to {ip}.
+
+**Error**: {ex.Message}");
             }
-        }
+*/        }
+
+        Action OnIDReceived;
 
         private void OnReceived(object sender, NetReceivedEventArgs<NetObject> e)
         {
@@ -101,6 +114,7 @@ The file you requested is not found on the server.");
                         break;
                     case 400:
                         thisID = Convert.ToInt32(e.Data.Object as string);
+                        OnIDReceived?.Invoke();
                         break;
                 }
             }
