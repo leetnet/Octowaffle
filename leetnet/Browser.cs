@@ -49,8 +49,11 @@ namespace leetnet
 
         public void SetMD(string md)
         {
-            WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
-            wbControl.DocumentText = CommonMark.CommonMarkConverter.Convert(md);
+            this.Invoke(new Action(() =>
+            {
+                WebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<WebBrowser>().FirstOrDefault();
+                wbControl.DocumentText = CommonMark.CommonMarkConverter.Convert(md);
+            }));
         }
 
         public void SendToServer(StatusCode statusCode, object obj)
