@@ -61,6 +61,10 @@ namespace leetnet
         public void SendToServer(StatusCode statusCode, object obj)
         {
             clnt.Send(new NetObject(this.thisID + " " + ((int)statusCode).ToString(), obj));
+            string thing = (string)obj;
+            thing.Replace("ltp://", "");
+            textBox1.Text = thing;
+            tabControl1.SelectedTab.Text = thing;
         }
 
         public void ConnectToClient(string ip, string fpath)
@@ -151,9 +155,6 @@ An error has occurred in Octowaffle and page loading has been halted.
                 {
                     LoadPage(thing);
                 }
-                thing.Replace("ltp://","");
-                textBox1.Text = thing;
-                tabControl1.SelectedTab.Text = textBox1.Text;
             };
         }
 
