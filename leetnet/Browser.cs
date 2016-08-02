@@ -72,6 +72,46 @@ namespace leetnet
         {
             LoadPage(toolStripTextBox1.Text);
         }
+
+        // New Tab
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
+            tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
+            tabControl1.SelectTab(addedTabPage);
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(start_text))
+            {
+                Parent = addedTabPage, //add the new webBrowser to the new tab
+                Dock = DockStyle.Fill,
+
+            };
+            addedWebBrowser.TitleChanged += (o, a) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    tabControl1.SelectedTab.Text = a.Title;
+                }));
+            };
+            addedWebBrowser.AddressChanged += (o, a) =>
+            {
+                try
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                        String thing = a.Address.ToString();
+                        if (thing.StartsWith("ltp://"))
+                        {
+                            LoadPage(thing);
+                        }
+                    }));
+                }
+                catch
+                {
+
+                }
+            };
+        }
         #endregion
 
         NetObjectClient clnt = null;
