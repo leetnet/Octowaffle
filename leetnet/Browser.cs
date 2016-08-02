@@ -42,8 +42,8 @@ namespace leetnet
 
         #region Constants
         public string inchtml = "data:text/html,<link rel =\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
-        public string start_text = File.ReadAllText("html/start.md");
-        public string version_text = File.ReadAllText("html/version.md");
+        public string start_text = Properties.Resources.start;
+        public string version_text = Properties.Resources.version;
         #endregion
 
         #region Button Actions
