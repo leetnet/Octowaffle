@@ -69,7 +69,7 @@ namespace leetnet
             this.Invoke(new Action(() =>
             {
                 var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                wbControl.Load("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(md));
+                wbControl.Load("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(md));
             }));
         }
 
