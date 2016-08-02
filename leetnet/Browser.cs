@@ -46,6 +46,11 @@ namespace leetnet
         public string version_text = File.ReadAllText("html/version.md");
         #endregion
 
+        #region Variables
+        public string[] history;
+        public 
+        #endregion
+
         #region Button Actions
         // Forward
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -56,7 +61,7 @@ namespace leetnet
         // Back
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            LoadPage(toolStripTextBox1.Text);
+            LoadPage(history);
         }
 
         // Submit
