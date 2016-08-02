@@ -46,28 +46,24 @@ namespace leetnet
         public string version_text = File.ReadAllText("html/version.md");
         #endregion
 
-        #region Variables
-        public string[] history;
-        public int pih;
-        #endregion
-
         #region Button Actions
         // Forward
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            LoadPage(toolStripTextBox1.Text);
+            var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+            wbControl.Forward();
         }
 
         // Back
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            LoadPage(history[pih]);
+            var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+            wbControl.Back();
         }
 
         // Submit
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            history.
             LoadPage(toolStripTextBox1.Text);
         }
 
