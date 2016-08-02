@@ -48,7 +48,7 @@ namespace leetnet
 
         #region Variables
         public string[] history;
-        public 
+        public int pih;
         #endregion
 
         #region Button Actions
@@ -61,12 +61,13 @@ namespace leetnet
         // Back
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            LoadPage(history);
+            LoadPage(history[pih]);
         }
 
         // Submit
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
+            history.
             LoadPage(toolStripTextBox1.Text);
         }
 
