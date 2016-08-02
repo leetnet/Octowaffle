@@ -40,10 +40,33 @@ namespace leetnet
             
         }
 
-        private void goButton_Click(object sender, EventArgs e)
+        #region Button Actions
+
+        // Forward
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            LoadPage(textBox1.Text);
+            LoadPage(toolStripTextBox1.Text);
         }
+
+        // Back
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            LoadPage(toolStripTextBox1.Text);
+        }
+
+        // Submit
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            LoadPage(toolStripTextBox1.Text);
+        }
+
+        // Refresh
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            LoadPage(toolStripTextBox1.Text);
+        }
+
+        #endregion
 
         NetObjectClient clnt = null;
         int thisID = 0;
@@ -54,7 +77,7 @@ namespace leetnet
             text = text.Replace("ltp://", "");
             this.Invoke(new Action(() =>
             {
-                textBox1.Text = text;
+                toolStripTextBox1.Text = text;
                 tabControl1.SelectedTab.Text = text;
             }));
             var textsplit = text.Split('/');
@@ -279,7 +302,7 @@ Things may not work! Please tell us if they don't!";
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                goButton_Click(this, EventArgs.Empty);
+                toolStripButton3_Click(this, EventArgs.Empty);
         }
 
         private void button2_Click(object sender, EventArgs e)
