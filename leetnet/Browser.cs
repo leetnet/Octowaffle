@@ -152,7 +152,7 @@ An error has occurred in Octowaffle and page loading has been halted.
             TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
             tabControl1.SelectTab(addedTabPage);
-            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<style> * {font-family: Arial;}</style>" + CommonMark.CommonMarkConverter.Convert(welcome_text))
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(welcome_text))
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
