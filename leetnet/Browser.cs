@@ -37,11 +37,16 @@ namespace leetnet
             Cef.Initialize(cs);
             InitializeComponent();
             //webBrowser1.DocumentText = "";
-            
+
         }
 
-        #region Button Actions
+        #region Constants
+        public string inchtml = "data:text/html,<link rel =\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">";
+        public string start_text = File.ReadAllText("html/start.md");
+        public string version_text = File.ReadAllText("html/version.md");
+        #endregion
 
+        #region Button Actions
         // Forward
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -65,38 +70,42 @@ namespace leetnet
         {
             LoadPage(toolStripTextBox1.Text);
         }
-
         #endregion
 
         NetObjectClient clnt = null;
         int thisID = 0;
 
-
         public void LoadPage(string text)
         {
-            text = text.Replace("ltp://", "");
-            this.Invoke(new Action(() =>
+            if (text.StartsWith("about:"))
             {
-                toolStripTextBox1.Text = text;
-                tabControl1.SelectedTab.Text = text;
-            }));
-            var textsplit = text.Split('/');
-            string ip_addr = textsplit[0];
-            string fpath = text.Replace(ip_addr, "");
-            if (clnt == null || clnt.RemoteHost != ip_addr)
-            {
-                ConnectToClient(ip_addr, fpath);
+                aboutPages(text);
             }
             else
             {
-                SendToServer(StatusCode.DocumentRequest, fpath);
+                text = text.Replace("ltp://", "");
+                this.Invoke(new Action(() =>
+                {
+                    toolStripTextBox1.Text = text;
+                    tabControl1.SelectedTab.Text = text;
+                }));
+                var textsplit = text.Split('/');
+                string ip_addr = textsplit[0];
+                string fpath = text.Replace(ip_addr, "");
+                if (clnt == null || clnt.RemoteHost != ip_addr)
+                {
+                    ConnectToClient(ip_addr, fpath);
+                }
+                else
+                {
+                    SendToServer(StatusCode.DocumentRequest, fpath);
+                }
+                this.Invoke(new Action(() =>
+                {
+                    var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
+                    wbControl.Tag = text;
+                }));
             }
-            this.Invoke(new Action(() =>
-            {
-                var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                wbControl.Tag = text;
-            }));
-
         }
 
         public void SetMD(string md)
@@ -104,7 +113,7 @@ namespace leetnet
             this.Invoke(new Action(() =>
             {
                 var wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                wbControl.Load("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(md));
+                wbControl.Load(inchtml + CommonMark.CommonMarkConverter.Convert(md));
             }));
         }
 
@@ -187,13 +196,12 @@ An error has occurred in Octowaffle and page loading has been halted.
             TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
             tabControl1.SelectTab(addedTabPage);
-            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(welcome_text))
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser(inchtml + CommonMark.CommonMarkConverter.Convert(start_text))
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
-                Dock = DockStyle.Fill,
-                
+                Dock = DockStyle.Fill,                
             };
-            SetMD(welcome_text);
+            SetMD(start_text);
             addedWebBrowser.TitleChanged += (o, a) =>
             {
                 try
@@ -221,10 +229,14 @@ An error has occurred in Octowaffle and page loading has been halted.
                     this.Invoke(new Action(() =>
                     {
                         ChromiumWebBrowser wbControl = tabControl1.SelectedTab.Controls.OfType<ChromiumWebBrowser>().FirstOrDefault();
-                        String thing = a.Address.ToString();
-                        if (thing.StartsWith("ltp://"))
+                        String url = a.Address.ToString();
+                        if (url.StartsWith("ltp://"))
                         {
-                            LoadPage(thing);
+                            LoadPage(url);
+                        }
+                        else
+                        {
+                            aboutPages(url);
                         }
                     }));
                 }
@@ -235,12 +247,25 @@ An error has occurred in Octowaffle and page loading has been halted.
             };
         }
 
+        public void aboutPages(string url)
+        {
+            switch (url)
+            {
+                case "about:start":
+                    SetMD(CommonMark.CommonMarkConverter.Convert(start_text));
+                    break;
+                case "about:version":
+                    SetMD(CommonMark.CommonMarkConverter.Convert(version_text));
+                    break;
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             TabPage addedTabPage = new TabPage("Welcome!"); //create the new tab
             tabControl1.TabPages.Add(addedTabPage); //add the tab to the TabControl
             tabControl1.SelectTab(addedTabPage);
-            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(welcome_text))
+            ChromiumWebBrowser addedWebBrowser = new ChromiumWebBrowser("data:text/html,<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">" + CommonMark.CommonMarkConverter.Convert(start_text))
             {
                 Parent = addedTabPage, //add the new webBrowser to the new tab
                 Dock = DockStyle.Fill,
@@ -290,14 +315,6 @@ An error has occurred in Octowaffle and page loading has been halted.
                 clnt.Disconnect();
             Application.Exit();
         }
-
-        public const string welcome_text = @"<title>Welcome!</title>
-
-# Welcome to the Leetnet.
-
-The 1337net's Client and Server are under construction!
-
-Things may not work! Please tell us if they don't!";
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
